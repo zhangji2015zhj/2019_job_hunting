@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "iomanip": "cpp",
+        "vector": "cpp",
+        "ostream": "cpp",
+        "system_error": "cpp",
+        "cstdlib": "cpp",
+        "valarray": "cpp"
+    }
+}

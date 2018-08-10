@@ -1,0 +1,26 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "iomanip": "cpp",
+        "vector": "cpp",
+        "ostream": "cpp",
+        "system_error": "cpp",
+        "cstdlib": "cpp",
+        "valarray": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "ratio": "cpp",
+        "type_traits": "cpp",
+        "*.tcc": "cpp",
+        "list": "cpp",
+        "deque": "cpp",
+        "array": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp",
+        "iosfwd": "cpp",
+        "algorithm": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "string_view": "cpp"
+    }
+}
