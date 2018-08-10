@@ -9,7 +9,7 @@
             "command": "g++",
             "args": [
                 // Ask msbuild to generate full paths for file names.
-                "CodeMA2.1.cpp",
+                "main.cpp",
                 "-g"
             ],
             "group": "build",
