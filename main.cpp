@@ -20,87 +20,150 @@
 #include <iterator>
 
 using namespace std;
-int c=0;
-multimap<int,int> depend;
 
-   vector<int> time_cost; 
-
-int fun(int s )
+struct ta
 {
-    int ret=0;
-    auto m=depend.find(s);
-    int len=depend.count(s);
-    ret+=time_cost[s];
-    int retn=0;
-    for(size_t i = 0; i < len; i++,m++)
-    {
-        retn=max(retn,fun(m->second));
-    }
-    if(len==0){
-        c++;
-    }
-    ret+=retn;
-    
+    int high;
+    int high_bak;
+    int num;
+};
 
-    return ret;
+vector<ta> apple;
+int lowfun(int k);
+int uppfun(int k);
+//比较函数递增
+bool comp(ta &a, ta &b)
+{
+    if (a.high < b.high) //递增
+        return true;
+    else
+        return false;
 }
+
 int main(int argc, char const *argv[])
 {
-   int m,n;
+    int n, k;
 
-    cin >> m>>n;
-    // vector<int> time_cost(m+1); 
-    time_cost.resize(m+1);
-    for(int i=1;i<=m;i++){
-        cin>>time_cost[i];
-    }
-  
-    vector<bool> start(m+1,false),end(m+1,false);
-    
-    while(n--){
-        /* code */
-        int first ,sec;
-        cin>>first>>sec;
-        // depend[first]=sec;
-        depend.insert(make_pair(first,sec));
-        start[first]=true;
-        end[sec]=true;
+    cin >> n >> k;
+    // vector<int> time_cost(m+1);
+    apple.resize(n);
 
-    }
-    
-    for(size_t i = 1; i <= m; i++)
+    for (int i = 0; i < n; i++)
     {
-        if(start[i]==true&&end[i]==false){}
-        else{
-            start[i]=false;
-        }
+        cin >> apple[i].high;
+        apple[i].high_bak = apple[i].high;
+        apple[i].num = i + 1;
     }
-    int max_cost=0;
-    for(size_t i = 1; i <= m; i++)
-    {
-        if(start[i]==true){
-           max_cost=max(fun(i),max_cost);
-        }
-    }
-    cout<<c<<"  "<<max_cost;
-    
+    sort(apple.begin(), apple.end(), comp);
 
-    // while (n--)
+    //lower_bound(apple.begin(), apple.end(), apple_now) - apple.begin();
+
+    int max_ind, min_ind;
+    int k_bak = k;
+    string ret;
+    max_ind = uppfun(k);
+    min_ind = lowfun(k);
+    // cout<< max_ind<<endl;
+    // cout<<min_ind<<endl;
+
+    int s = 0;
+    int e = n - 1;
+    int op = 0;
+
+    // while (true)
     // {
-    //     string T;
-    //     cin >> T;
-    //     if (fun(T))
+    //     if (s > min_ind || e < max_ind)
     //     {
-    //         cout << "yes";
+    //         break;
     //     }
-    //     else
+    //     if(s>=e)
+    //     break;
+
+    //     // int low_change = apple[min_ind].high_bak-apple[s].high;
+    //     // int up_change = apple[e].high - apple[max_ind].high_bak;
+    //     // int change = min(low_change, up_change);
+    //     // op += change;
+    //     // apple[s].high += change;
+    //     // apple[e].high -= change;
+    //    int change =1;
+
+    //     for (size_t i = 0; i < change; i++)
     //     {
-    //         cout << "no";
+    //         ret += "\n" + to_string(apple[e].num) + " " + to_string(apple[s].num);
     //     }
-    //     if (n != 0)
+
+    //     if (apple[s].high - apple[min_ind].high_bak == 0)
     //     {
-    //         cout << endl;
+    //         s++;
+    //     }
+    //     if (apple[e].high - apple[max_ind].high_bak)
+    //     {
+    //         e--;
     //     }
     // }
+
+    while (true)
+    {
+
+        max_ind = lower_bound(apple.begin(), apple.end(), apple[n - 1]) - apple.begin();
+        min_ind = upper_bound(apple.begin(), apple.end(), apple[0]) - apple.begin();
+        if (max_ind <= min_ind)
+        {
+            break;
+        }
+
+        if (k < max(n - max_ind, min_ind + 1))
+        {
+            break;
+        }
+         int change = min(n - max_ind, min_ind + 1);
+
+        // int change = 1;
+
+        for (auto i = max_ind + apple.begin(), j = min_ind + apple.begin(); change--; j--, i++)
+        {
+            i->high--;
+            j->high++;
+            ret += "\n" + to_string(i->num) + " " + to_string(j->num);
+            op++;
+        }
+    }
+
+   // cout << int(apple[n - 1].high - apple[0].high) << " " << op << ret;
+
     return 0;
+}
+
+int lowfun(int k)
+{
+    int count = apple.size();
+    int sum = 0;
+    int i;
+    for (i = 0; i < count; i++)
+    {
+        /* code */
+        sum += apple[i].high;
+        if ((i + 1) * apple[i].high_bak > k + sum)
+        {
+            break;
+        }
+    }
+    return i;
+}
+
+int uppfun(int k)
+{
+    const int count = apple.size();
+    int sum = 0;
+    int i;
+    for (i = count - 1; i > 0; i--)
+    {
+        /* code */
+        sum += apple[i].high;
+        if ((i + 1) * apple[count - 1].high_bak > k + sum)
+        {
+            break;
+        }
+    }
+    return i;
 }
