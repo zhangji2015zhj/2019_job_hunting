@@ -19,5 +19,7 @@
         "string_view": "cpp",
         "future": "cpp",
         "ratio": "cpp"
-    }
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "git.ignoreLimitWarning": true
 }

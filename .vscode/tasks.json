@@ -10,7 +10,9 @@
             "args": [
                 // Ask msbuild to generate full paths for file names.
                 "main.cpp",
-                "-g"
+                "-g",
+                "-o",
+                "a.out"
             ],
             "group": "build",
             "presentation": {
@@ -20,4 +22,23 @@
 
         }
     ]
+//     "tasks": [
+//     {
+//         "label": "build",
+//         "command": "g++",
+//         "args": ["-g","-std=c++11","${file}","-o","${workspaceRoot}\\${fileBasenameNoExtension}.exe"],
+//         "problemMatcher": {
+//             "owner": "cpp",
+//             "fileLocation": ["relative", "${workspaceRoot}"],
+//             "pattern": {
+//                 "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+//                 "file": 1,
+//                 "line": 2,
+//                 "column": 3,
+//                 "severity": 4,
+//                 "message": 5
+//             }
+//         }
+//     }
+// ]
 }
