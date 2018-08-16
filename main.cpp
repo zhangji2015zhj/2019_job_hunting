@@ -26,19 +26,40 @@ struct ta
     int high;
     int high_bak;
     int num;
+    bool operator<(const ta &a) const
+    {
+        if (high < a.high) //递增
+            return true;
+        else
+            return false;
+    }
+        bool operator>(const ta &a) const
+    {
+        if (high > a.high) //递增
+            return true;
+        else
+            return false;
+    }
 };
 
 vector<ta> apple;
 int lowfun(int k);
 int uppfun(int k);
 //比较函数递增
-bool comp(ta &a, ta &b)
-{
-    if (a.high < b.high) //递增
-        return true;
-    else
-        return false;
-}
+// static bool comp(const ta &a, const  ta &b)
+// {
+//     if (a.high < b.high) //递增
+//         return true;
+//     else
+//         return false;
+// }
+// bool lesscomp(const ta &a, const ta &b)  
+// {
+//     if (a.high < b.high) //递增
+//         return true;
+//     else
+//         return false;
+// }
 
 int main(int argc, char const *argv[])
 {
@@ -54,7 +75,7 @@ int main(int argc, char const *argv[])
         apple[i].high_bak = apple[i].high;
         apple[i].num = i + 1;
     }
-    sort(apple.begin(), apple.end(), comp);
+    sort(apple.begin(), apple.end(), less<ta>());
 
     //lower_bound(apple.begin(), apple.end(), apple_now) - apple.begin();
 
@@ -70,38 +91,6 @@ int main(int argc, char const *argv[])
     int e = n - 1;
     int op = 0;
 
-    // while (true)
-    // {
-    //     if (s > min_ind || e < max_ind)
-    //     {
-    //         break;
-    //     }
-    //     if(s>=e)
-    //     break;
-
-    //     // int low_change = apple[min_ind].high_bak-apple[s].high;
-    //     // int up_change = apple[e].high - apple[max_ind].high_bak;
-    //     // int change = min(low_change, up_change);
-    //     // op += change;
-    //     // apple[s].high += change;
-    //     // apple[e].high -= change;
-    //    int change =1;
-
-    //     for (size_t i = 0; i < change; i++)
-    //     {
-    //         ret += "\n" + to_string(apple[e].num) + " " + to_string(apple[s].num);
-    //     }
-
-    //     if (apple[s].high - apple[min_ind].high_bak == 0)
-    //     {
-    //         s++;
-    //     }
-    //     if (apple[e].high - apple[max_ind].high_bak)
-    //     {
-    //         e--;
-    //     }
-    // }
-
     while (true)
     {
 
@@ -116,7 +105,7 @@ int main(int argc, char const *argv[])
         {
             break;
         }
-         int change = min(n - max_ind, min_ind + 1);
+        int change = min(n - max_ind, min_ind + 1);
 
         // int change = 1;
 
@@ -129,7 +118,7 @@ int main(int argc, char const *argv[])
         }
     }
 
-   // cout << int(apple[n - 1].high - apple[0].high) << " " << op << ret;
+    // cout << int(apple[n - 1].high - apple[0].high) << " " << op << ret;
 
     return 0;
 }
